@@ -1,6 +1,6 @@
-Picasatude
+Picasitude
 ==========
-Picasatude is a sync tool between Google's Picasa Web Albums and Google's Latitude Geolocation service  
+Picasitude is a sync tool between Google's Picasa Web Albums and Google's Latitude Geolocation service  
 
 Why?
 ----
@@ -8,13 +8,13 @@ There are lots of photos that are instantly geo-tagged when taken by a smartphon
 
 How?
 ----
-Just head over to [Picasatude](http://picasatude.appspot.com). Follow the instructions that walk you through the process. (Coming soon?!)  
+Just head over to [Picasitude](http://picasatude.appspot.com). Follow the instructions that walk you through the process. (Coming soon?!)  
 
 The process is pretty straightforward:
 
-*  Give Picasatude access to your Picasa Web and Latitude information. We use oauth so Picasatude will never have your access credentials, that's between you and Google.  
-*  Picasatude will grab a list of your albums so you can tell us which album you would like to geotag.  
-*  We run through the photos in the album and find the best position from latitude. Updating picasa as we go!  
+*  Give Picasitude access to your Picasa Web and Latitude information. We use oauth so Picasitude will never have your access credentials, that's between you and Google.  
+*  Picasitude will grab a list of your albums so you can tell us which album you would like to geotag.  
+*  We run through the photos in the album and find the best position from latitude. Updating Picasa as we go!  
 
 
 
