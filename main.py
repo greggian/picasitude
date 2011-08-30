@@ -41,6 +41,22 @@ authorize_token_params = {
     'location': 'all'
 }
 
+class MainHandler(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'templates/main.html')
+        template_values = {
+        }
+        html = template.render(path, template_values)
+        self.response.out.write(html)
+
+class AuthHandler(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'templates/auth.html')
+        template_values = {
+        }
+        html = template.render(path, template_values)
+        self.response.out.write(html)
+
 
 class InitHandler(webapp.RequestHandler):
 
@@ -211,6 +227,11 @@ class SyncHandler(webapp.RequestHandler):
         consumer = oauth.Consumer(config.consumer_key, config.consumer_secret)
         client = oauth.Client(consumer, token)
 
+
+        from google.appengine.api.channel import channel
+        #using auth_token as unique client_id to gen a token
+        channel_token = channel.create_channel(auth_token)
+
         runner = MidnightRunner()
         #passing entity to deferred, nto recommended but acceptable
         #as long as we arent updating/storing it
@@ -218,6 +239,14 @@ class SyncHandler(webapp.RequestHandler):
 
         #data = [ self.buildTuple(photo) for photo in photos.entry ]
         #logging.debug(data)
+
+
+        path = os.path.join(os.path.dirname(__file__), 'templates/sync.html')
+        template_values = {
+            'channel_token': channel_token
+        }
+        html = template.render(path, template_values)
+        self.response.out.write(html)
 
     def timestampToYMD(self, timestampMS):
         timestampS = int(timestampMS)/1000
@@ -234,6 +263,8 @@ class SyncHandler(webapp.RequestHandler):
 
 application = webapp.WSGIApplication(
                 [
+                    ('/', MainHandler),
+                    ('/auth', AuthHandler),
                     ('/init_auth', InitHandler),
                     ('/auth_callback', CallbackHandler),
                     ('/auth_complete', CompleteHandler),

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Picasatude{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block js %}{% endblock js %}
+
+{% block main-content %}
+	<div class="breadcrumb">
+	{% block breadcrumb %}
+		<ul>
+			<li class="active" title="Find out what you're in for">Welcome</li>
+			<li class="" title="Introduce Picasitude to Google">Authorization</li>
+			<li class="" title="Select your photos to update">Selection</li>
+			<li class="" title="Sync your picas to your itude">Sync</li>
+		</ul>
+	{% endblock breadcrumb %}
+	</div>
+	<div class="content">
+	{% block content %}
+	{% endblock content %}
+	</div>
+{% endblock main-content %}
+	</body>
+</html>

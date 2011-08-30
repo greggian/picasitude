@@ -1,19 +1,24 @@
-<html>
-	<head>
-		<title>Picasatude</title>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
-	</head>
-	<body>
-		{{ user|escape }}'s Albums!
+{% extends "base_nav.html" %}
 
-		<form action="/sync" method="POST">
-		<ul>
-			<input type="hidden" name="auth_token" value="{{ auth_token }}">
+{% block breadcrumb %}
+	<ul>
+		<li class="complete" title="Find out what you're in for">Welcome</li>
+		<li class="complete" title="Introduce Picasitude to Google">Authorization</li>
+		<li class="active" title="Select your photos to update">Selection</li>
+		<li class="" title="Sync your picas to your itude">Sync</li>
+	</ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+	{{ user|escape }}'s Albums!
+	
+	<form action="/sync" method="POST">
+		<input type="hidden" name="auth_token" value="{{ auth_token }}">
+		<select name="album">
 			{% for album in albums %}
-			<li><input type="radio" name="album" value="{{ album.1 }}"> {{ album.0|escape }} </li>
+			<option value="{{ album.1 }}">{{ album.0|escape }}</option>
 			{% endfor %}
-		</ul>
-			<input type="submit" value="sync">
-		</form>
-	</body>
-</html>
+		</select>
+		<input type="submit" value="sync">
+	</form>
+{% endblock content %}

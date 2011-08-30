@@ -10,6 +10,7 @@ import oauth2 as oauth
 import simplejson as json
 
 from google.appengine.ext import deferred
+from google.appengine.api.channel import channel
 
 sys.path.append('gdata.zip')
 import gdata.photos, gdata.photos.service, gdata.auth
@@ -40,6 +41,13 @@ class MidnightRunner(object):
         if loc :
             #logging.info("updating photo: "+photo.title.text)
             self.updatePhoto(auth_pair, photo, loc)
+            msg = {
+                    'title': photo.title.text,
+                    'thumbnail': photo.media.thumbnail[0].url,
+                    'lat':loc['latitude'],
+                    'lng': loc['longitude']
+            };
+            channel.send_message(auth_pair.token, json.dumps(msg))
 
         photoGroup.pop(0)
         if len(photoGroup) == 0:

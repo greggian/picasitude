@@ -9,13 +9,12 @@ builtins:
 
 handlers:
 
-- url: /googledb3ca354c8507eef.html
-  static_files: googledb3ca354c8507eef.html
-  upload: googledb3ca354c8507eef.html
-
 - url: /
-  static_files: index.html
-  upload: index.html
+  script: main.py
+
+- url: /(.*\.html)
+  static_files: html/\1
+  upload: html/(.*\.html)
   expiration: "30d"
 
 - url: /images

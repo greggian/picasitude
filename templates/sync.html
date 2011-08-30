@@ -1,0 +1,153 @@
+{% extends "base_nav.html" %}
+
+{% block css %}
+	<style>
+		.content {
+			padding: 0;
+			height: 350px;
+			width: 700px;
+		}
+
+		#list_panel {
+			height: 100%;
+			width: 199px;
+			float: right;
+			overflow: auto;
+
+			background-color: lightgray;
+			border-left: 1px solid black; 
+		}
+
+		#map_panel {
+			height: 100%;
+			margin-right: 200px;
+		}
+
+		#map_canvas {
+			height: 100%;
+			width: 100%;
+		}
+
+		.list_item {
+			border-bottom: 1px dashed gray;
+			padding: 3px;
+			text-align: left;
+		}
+
+		.list_item img {
+			vertical-align: middle;
+		}
+	</style>
+{% endblock css %}
+
+{% block js %}
+	<script type="text/javascript" src="/_ah/channel/jsapi"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	
+	<script type="text/javascript">
+		var channelId = '{{ channel_token }}';
+		var map;
+		var infoWindow;
+	
+		var channel;
+	
+		function log(msg){
+			if(msg && window.console){
+				if((typeof msg)==="object" && msg.toSource){
+					msg = msg.toSource();
+				}
+				window.console.debug(msg);
+			}
+		};
+	
+		function plot_item(item){
+			var latlng = new google.maps.LatLng(item.lat, item.lng);
+			var marker = new google.maps.Marker({
+				title: item.title,
+				position: latlng, 
+				map: map
+			}); 
+			marker.content = '<div>'+
+				'<h1>'+item.title+'</h1>'+
+				'<img src="'+item.thumbnail+'"></img>'
+				'</div>';
+	
+			google.maps.event.addListener(marker, 'click', function() {
+				infoWindow.setContent(marker.content);
+				infoWindow.open(marker.get('map'), marker);
+			});
+	
+			map.panTo(latlng);
+			infoWindow.setContent(marker.content);
+			infoWindow.open(marker.get('map'), marker);
+		};
+
+		function list_item(item){
+			//remove any placeholders
+			$('.placeholder','#list_panel').remove();
+
+			var img = $('<img>').attr('src', item.thumbnail)
+			$('<div>')
+				.append(img)
+				.append(item.title)
+				.addClass("list_item")
+				.appendTo('#list_panel');
+		};
+	
+		function init_channel(){
+			channel = new goog.appengine.Channel(channelId);
+			socket = channel.open();
+			socket.onopen = function(){
+				log("opened");
+			};
+			socket.onmessage = function(msg){
+				msg = $.parseJSON(msg.data);
+				log(msg);
+				plot_item(msg);
+				list_item(msg);
+			};
+			socket.onerror = function(){
+				log("errored");
+			};
+			socket.onclose = function(){
+				log("closed");
+			};
+		};
+	
+		function init_map(){
+			var myOptions = {
+				zoom: 13,
+				center: new google.maps.LatLng(0, 0),
+				mapTypeId: google.maps.MapTypeId.TERRAIN
+			};
+				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			
+			infoWindow = new google.maps.InfoWindow();
+		};
+	
+		function initialize(){
+			init_map();
+			init_channel();
+		};
+	
+		$(document).ready(initialize);
+	</script>
+{% endblock js %}
+
+{% block breadcrumb %}
+	<ul>
+		<li class="complete" title="Find out what you're in for">Welcome</li>
+		<li class="complete" title="Introduce Picasitude to Google">Authorization</li>
+		<li class="complete" title="Select your photos to update">Selection</li>
+		<li class="active" title="Sync your picas to your itude">Sync</li>
+	</ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+	<div id="list_panel">
+		<div class="list_item placeholder">Loading...</div>
+	</div>
+	<div id="map_panel">
+		<div id="map_canvas"></div>
+	</div>
+{% endblock content %}
