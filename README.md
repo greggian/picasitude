@@ -17,4 +17,8 @@ The process is pretty straightforward:
 *  We run through the photos in the album and find the best position from latitude. Updating Picasa as we go!  
 
 
-
+Caveats
+-------
+*  You must opt-in to Latitude's location history feature. Otherwise Latitude only knows/provides your last available location.
+*  History data must be available for the time when the photo was taken (+/- an hour or so). We recommend Google Latitude for your mobile phone to keep your locations current, at least while shooting.
+*  Timezone support is not yet added so your camera's date and time must be set correctly for your current timezone.
