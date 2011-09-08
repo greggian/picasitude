@@ -10,7 +10,8 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-	{{ user|escape }}'s Albums!
+	<h2>Selection</h2>
+	<p>Which of your numerous albums would you like to geotag?</p>
 	
 	<form action="/sync" method="POST">
 		<input type="hidden" name="auth_token" value="{{ auth_token }}">
@@ -19,6 +20,7 @@
 			<option value="{{ album.1 }}">{{ album.0|escape }}</option>
 			{% endfor %}
 		</select>
-		<input type="submit" value="sync">
+		<br>
+		<input type="submit" value="Get to syncing!"></input>
 	</form>
 {% endblock content %}

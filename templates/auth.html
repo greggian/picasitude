@@ -10,5 +10,12 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-	Auth!
+	<h2>Authorization</h2>
+	<p>In order to talk to Google and ask for access to your photos and locations, we need your permission. We will never have access to your credentials, that's between you and Google.</p>
+	<p>We will send you over to Google's site and once you grant Picasitude access, Google will let us know and send you back here to continue the sync process.</p>
+
+	        <form method='get' action='/init_auth'>
+			<input type="submit" value="Yeah, yeah. Let's go!"></input>
+		</form>
+
 {% endblock content %}

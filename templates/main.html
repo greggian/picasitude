@@ -1,8 +1,16 @@
 {% extends "base_nav.html" %}
 
 {% block content %}
-	Welcome!
-	<a href="/init_auth">Start!</a>
-	<h2>How's this thing work?!</h2>
-	Well!
+	<h2>Welcome to Picasitude!</h2>
+	<p>Picasitude is a sync tool between Google's Picasa Web Albums and Google's Latitude Geolocation service. Latitude has the abiility to track your location as you travel and keep a complete history, if you allow it. Picasatude allows you to put that location data to use by geotagging your photos.</p>
+
+	<h3>Why?</h3>
+	<p>There are lots of photos that are instantly geo-tagged when taken by a smartphone or similar geo-aware device. This is great because you can come back to a picture and know exactly when and where it was taken. That kind of geo-tagging should be available for all of your photos, even if they were taken by a point-and-shoot or dslr. If you use latitude, the data is available and ready to use.</p>
+
+	<h3>How?</h3>
+	</p>No worries, we will walk you through it!</p>
+
+	<form method='get' action='/auth'>
+		<input type="submit" value="Let's get started!"></input>
+	</form>
 {% endblock content %}
