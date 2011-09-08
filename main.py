@@ -32,11 +32,11 @@ access_token_url = 'https://www.google.com/accounts/OAuthGetAccessToken'
 
 request_token_params = {
     'scope': 'https://picasaweb.google.com/data https://www.googleapis.com/auth/latitude',
-    'oauth_callback': 'http://picasatude.appspot.com/auth_callback',
+    'oauth_callback': 'http://picasitude.appspot.com/auth_callback',
 }
 
 authorize_token_params = {
-    'domain': 'picasatude.appspot.com',
+    'domain': 'picasitude.appspot.com',
     'granularity': 'best',
     'location': 'all'
 }
